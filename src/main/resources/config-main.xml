@@ -1,50 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-
+	<!-- default properties -->
 	<context:property-placeholder location="classpath:application.properties" />
 
+	<!-- Import additional bean defenition files -->
 	<import resource="classpath:config-beans-log-init-destroy.xml" />
+	<import resource="classpath:config-beans-userfactory.xml" />
 	<import resource="classpath:config-beans-set-property-spring-context.xml" />
+	<import resource="classpath:config-beans-userfactorybeanimpl.xml" />
 
-
-	<!-- <bean id="userfff" class="com.epam.mentoring.task3.model.User"> -->
-	<!-- constructor method -->
-	<!-- <constructor-arg type="java.lang.String" value="${app.username}" /> -->
-
-	<!-- setter method -->
-	<!-- <property name="username" value="${app.fff}" /> -->
-	<!-- </bean> -->
 
 	<bean id="user" class="com.epam.mentoring.task3.model.User" scope="prototype">
 		<!-- constructor method -->
+		<!-- string constants -->
 		<constructor-arg name="username" value="${username}" type="java.lang.String" />
-		<constructor-arg name="age"   value="26" />	
-		<constructor-arg name="work" ref="work" />			
-		<!-- setter method -->
-		
+		<!-- primitive types -->
+		<constructor-arg name="age" value="26" />
+		<!-- bean references -->
+		<constructor-arg name="work" ref="work" />
 	</bean>
 
 	<bean id="work" class="com.epam.mentoring.task3.model.Work" scope="prototype">
-		<!-- property method -->
+		<!-- property aproach -->
 		<property name="companyName" value="${app.work}" />
-		<property name="yearStartWork" value="${app.yearStartWork}" />		
+		<property name="yearStartWork" value="${app.yearStartWork}" />
 	</bean>
-
-
-	<!-- <bean id="factoryMethod" -->
-	<!-- class="com.epam.mentoring.task3.factory.UserFactoryBeanImpl" -->
-	<!-- factory-method="getObject" -->
-	<!-- scope="singleton"/> -->
-
-
-
-	<!-- <bean id="userFactory" class="com.epam.mentoring.task3.factory.UserFactoryBeanImpl"> -->
-	<!-- <property name="username" value="${app.username}" /> -->
-	<!-- </bean> -->
-
 
 </beans>

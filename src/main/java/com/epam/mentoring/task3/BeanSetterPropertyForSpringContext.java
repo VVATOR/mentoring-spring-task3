@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class BeanSetterPropertyForSpringContext {
 	private static final Logger LOG = LoggerFactory.getLogger(BeanSetterPropertyForSpringContext.class);
-
+	
 	public BeanSetterPropertyForSpringContext() {
 		super();
 		LOG.info("Implement bean which sets property");

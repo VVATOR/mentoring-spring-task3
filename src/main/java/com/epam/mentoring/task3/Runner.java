@@ -17,61 +17,33 @@ import com.epam.mentoring.task3.service.BeanLogPhases;
 
 public class Runner {
 	private static final Logger LOG = LoggerFactory.getLogger(Runner.class);
+
 	public static void main(String[] args) {
-		
+
 		LOG.info("START APPLICATION");
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("config-main.xml");
-		
-		
-		User u = context.getBean(User.class);
-		LOG.info("-------{}",u);
 
-		
-		BeanLogPhases usaaa = context.getBean(BeanLogPhases.class);
-		
-		 usaaa = (BeanLogPhases) context.getBean("beanLogPhases");
+		User uff = (User) context.getBean("userFromFactory");
+		LOG.info("Result of factory-method: {}", uff);
 
-		 BeanDefinitionRegistry beanFactory = new DefaultListableBeanFactory();
-		User us = context.getBean(User.class);
-		LOG.info("1");
-		us = (User) context.getBean("user");
-		LOG.info("2");
-		us = (User) context.getBean("user");
-		LOG.info("3");
-		((DefaultListableBeanFactory) beanFactory).destroySingleton("user");
-		us = (User) context.getBean("user");
-		LOG.info("4");
-		us = (User) context.getBean("user");
-		us = (User) context.getBean("user");
-		//
-			 
-		/* FactoryBean ubf = new UserFactoryBeanImpl();
-		 try {
-			User uu = (User) ubf.getObject();
-			LOG.info("{}",uu);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+		User ufbi = (User) context.getBean("userFactoryBeanImpl");
+		LOG.info("Result of implement FactoryBean interface: {}", ufbi);
 
-		 
-		   
-		 	
-		
 		BeanSetterPropertyForSpringContext beanSetterPropertyForSpringContext = context.getBean(BeanSetterPropertyForSpringContext.class);
 		Properties properties = new Properties();
 		properties.setProperty("username", "Awesome");
 		properties.setProperty("app.work", "EPAM");
 		properties.setProperty("app.yearStartWork", "2018");
-		beanSetterPropertyForSpringContext.setPropertyInSpringContext(context,properties);
-		
+		beanSetterPropertyForSpringContext.setPropertyInSpringContext(context, properties);
 		context.refresh();
-		 						
-			
-		User user = context.getBean(User.class);
-		LOG.info("Parameter from reloaded context{}",user);
+
+		User user = (User) context.getBean("userFactoryBeanImpl");
+		LOG.info("Parameter from reloaded context{}", user);
+
 		
-		
+		LOG.info("Implement bean that sends message to log at initialization and destroy phases");
+		BeanLogPhases usaaa = context.getBean(BeanLogPhases.class);
+
 		context.close();
 	}
 
